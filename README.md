@@ -1,7 +1,10 @@
 # [Santa's Gift List Parser](https://adventofsql.com/challenges/1)
 ## Description
 Santa's workshop is modernizing! Gone are the days of paper wish lists and manual sorting. The elves have implemented a new digital system to handle the millions of Christmas wishes they receive. However, Santa needs a way to quickly understand what each child wants and how to optimize workshop operations.
+
 ## Challenge
+[Download Challenge Data](https://github.com/thatlaconic/Advent-of-SQL/blob/main/advent_of_sql_day_1.sql)
+
 Create a report that helps Santa and the elves understand:
 * Each child's primary and backup gift choices
 * Their color preferences
@@ -17,6 +20,8 @@ Create a report that helps Santa and the elves understand:
   educational = Learning Workshop
   all other types = General Workshop
   ```
+* Order the list by name in ascending order and the answer should only return in 5 rows
+
 ## Dataset
 This dataset contains 3 tables. 
 ### Using PostgreSQL:
@@ -26,6 +31,7 @@ SELECT *
 FROM children ;
 ```
 **output**
+![](https://github.com/thatlaconic/Advent-of-SQL/blob/main/children.PNG)
 
 **input**
 ```sql
@@ -33,6 +39,7 @@ SELECT *
 FROM toy_catalogue ;
 ```
 **output**
+![](https://github.com/thatlaconic/Advent-of-SQL/blob/main/toy_catalogue.PNG)
 
 **input**
 ```sql
@@ -40,9 +47,12 @@ SELECT *
 FROM wish_lists ;
 ```
 **output**
+![](https://github.com/thatlaconic/Advent-of-SQL/blob/main/wish_lists.PNG)
 
 ## Solution
+[Download Solution Code](https://github.com/thatlaconic/Advent-of-SQL/blob/main/advent_answer_day1.sql)
 
+**input** 
 ```sql
 WITH CTE AS (SELECT child_id, wishes->>'first_choice' as first_choice, 
 			wishes->>'second_choice' as backup_choice,
@@ -70,3 +80,5 @@ JOIN toy_catalogue ON CTE2.first_choice = toy_catalogue.toy_name
 ORDER BY name
 LIMIT 5  ;
 ```
+**output**
+![](https://github.com/thatlaconic/Advent-of-SQL/blob/main/answer.PNG)
